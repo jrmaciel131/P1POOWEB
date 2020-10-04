@@ -30,7 +30,7 @@
                     disciplina.getList().get(i).setNota(nota);
                     application.setAttribute("disciplina", disciplina);
                 }else{
-%><scrip>alert("Disciplina de id: <%=i%> possui um Parametro invalido. (Apenas valores de 0 a 10 são permitidos !!!!")</scrip><%
+%><script>alert("Disciplina de id: <%=i%> possui um Parametro invalido. (Apenas valores de 0 a 10 são permitidos !!!!")</script><%
                 }
             } catch (Exception e) {
                 continue;
@@ -59,7 +59,7 @@
                 <tbody>
                     <%for (int i = 0; i < disciplina.getList().size(); i++) {%>
                     <tr>
-                        <td><%=i%></td>
+                        <td><%=i + 1%></td>
                         <td><%=disciplina.getList().get(i).getName()%></td>
                         <td><%=disciplina.getList().get(i).getEmenta()%></td>
                         <td><%=disciplina.getList().get(i).getCiclo()%></td>
