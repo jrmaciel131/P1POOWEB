@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author jrmac
  */
 public class Disciplina {
-    private String name, ementa;
+    private String nome, ementa;
     private int ciclo;
     private double nota;
     private ArrayList<Disciplina> disciplinas = new ArrayList<>();
@@ -21,17 +21,17 @@ public class Disciplina {
     }
 
     public Disciplina(String name, String ementa, int ciclo) {
-        this.name = name;
+        this.nome = name;
         this.ementa = ementa;
         this.ciclo = ciclo;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmenta() {
