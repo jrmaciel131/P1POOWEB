@@ -36,7 +36,7 @@
             <div class="jumbotron">
                 <h1 class="display-3">P1 - POO</h1>
                 <p class="lead">César Maciel Silva </br> ra: 1290481913054</br>Numero de disciplinas matriculadas: <%= Disciplina.getList().size() %> </p>
-                <p><a class="btn btn-lg btn-success" href="listaDeDisciplina.jsp" role="button" style="background-color: rgb(0, 123, 255);">Lista de Disciplinas</a></p>
+                <p><a class="btn btn-lg btn-success" href="disciplina.jsp" role="button" style="background-color: rgb(0, 123, 255);">Lista de Disciplinas</a></p>
             </div>
 
             <div class="row marketing">

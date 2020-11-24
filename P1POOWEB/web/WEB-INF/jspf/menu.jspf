@@ -11,7 +11,7 @@
                             <a class="nav-link" href="sobre.jsp" style="background-color: rgb(0, 123, 255); color: rgb(255, 255, 255);">Sobre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="listaDeDisciplina.jsp" style="color: rgb(255, 255, 255); background-color: rgb(0, 123, 255);">Lista de disciplinas</a>
+                            <a class="nav-link" href="disciplina.jsp" style="color: rgb(255, 255, 255); background-color: rgb(0, 123, 255);">Lista de disciplinas</a>
                         </li>
                     </ul>
                 </nav>
