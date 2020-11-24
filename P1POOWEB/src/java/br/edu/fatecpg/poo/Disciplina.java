@@ -5,7 +5,12 @@
  */
 package br.edu.fatecpg.poo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import web.DbListener;
 
 /**
  *
@@ -17,14 +22,100 @@ public class Disciplina {
     private double nota;
     private ArrayList<Disciplina> disciplinas = new ArrayList<>();
 
-    public Disciplina() {
-    }
-
-    public Disciplina(String name, String ementa, int ciclo) {
-        this.nome = name;
+    public Disciplina(String nome, String ementa, int ciclo, double nota) {
+        this.nome = nome;
         this.ementa = ementa;
         this.ciclo = ciclo;
+        this.nota = nota;
     }
+    
+    
+       public static ArrayList<Disciplina> getList() throws Exception{
+        ArrayList<Disciplina> list = new ArrayList<>();
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        Exception methodEx = null;
+        try {
+            con = DbListener.getConection();
+            stmt = con.createStatement();
+            stmt.execute(Disciplina.getCreatStatement());
+            rs = stmt.executeQuery("SELECT * FROM disciplinas");
+            while(rs.next()){
+                list.add(new Disciplina(rs.getString("nome"), rs.getString("ementa"), rs.getInt("ciclo"), rs.getDouble("nota")));
+            }
+    
+        } catch (Exception ex) {
+            methodEx = ex;
+        }finally{
+            try {stmt.close();con.close();rs.close();}catch (Exception e) { }
+        }
+        if(methodEx!=null) throw methodEx;
+        return list;
+    }
+  
+    public static void insert(String nome, String descricao) throws Exception{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Exception methodEx = null;
+        try {
+            con = DbListener.getConection();
+            stmt = con.prepareStatement("INSERT INTO categorias values(?,?)");
+            stmt.setString(1, nome);
+            stmt.setString(2, descricao);
+            stmt.execute();
+        } catch (Exception ex) {
+            methodEx = ex;
+        }finally{
+            try {stmt.close();con.close();rs.close();}catch (Exception e) { }
+        }
+        if(methodEx!=null) throw methodEx;
+        
+    }
+    
+    
+        public static void update(String nomeAntigo, String nome, String descricao) throws Exception{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Exception methodEx = null;
+        try {
+            con = DbListener.getConection();
+            stmt = con.prepareStatement("UPDATE categorias SET nome= ?, descricao=? WHERE nome = ?");
+            stmt.setString(1, nome);
+            stmt.setString(2, descricao);
+            stmt.setString(3, nomeAntigo);
+            stmt.execute();
+        } catch (Exception ex) {
+            methodEx = ex;
+        }finally{
+            try {stmt.close();con.close();rs.close();}catch (Exception e) { }
+        }
+        if(methodEx!=null) throw methodEx;
+        
+    }
+ 
+        public static void delete(String nome) throws Exception{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Exception methodEx = null;
+        try {
+            con = DbListener.getConection();
+            stmt = con.prepareStatement("DELETE FROM categorias WHERE nome=?");
+            stmt.setString(1, nome);
+            stmt.execute();
+        } catch (Exception ex) {
+            methodEx = ex;
+        }finally{
+            try {stmt.close();con.close();rs.close();}catch (Exception e) { }
+        }
+        if(methodEx!=null) throw methodEx;
+        
+    }
+      
+
 
     public String getNome() {
         return nome;
@@ -70,7 +161,13 @@ public class Disciplina {
         return disciplinas;
     }
     
-    
+    public static String getCreatStatement(){
+        return "CREATE TABLE IF NOT EXISTS disciplinas("
+                + "nome VARCHAR(50) PRIMARY KEY,"
+                + "ementa VARCHAR(200),"
+                + "ciclo int NOT NULL,"
+                + "nota Double)";
+    }
     
     
     
