@@ -54,16 +54,18 @@ public class Disciplina {
         return list;
     }
   
-    public static void insert(String nome, String descricao) throws Exception{
+    public static void insert(String nome, String ementa, int ciclo, Double nota) throws Exception{
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Exception methodEx = null;
         try {
             con = DbListener.getConection();
-            stmt = con.prepareStatement("INSERT INTO categorias values(?,?)");
+            stmt = con.prepareStatement("INSERT INTO disciplinas values(?,?,?,?)");
             stmt.setString(1, nome);
-            stmt.setString(2, descricao);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, ciclo);
+            stmt.setDouble(4, nota);
             stmt.execute();
         } catch (Exception ex) {
             methodEx = ex;
@@ -75,17 +77,19 @@ public class Disciplina {
     }
     
     
-        public static void update(String nomeAntigo, String nome, String descricao) throws Exception{
+        public static void update(String nomeAntigo, String nome, String ementa,int ciclo, Double nota) throws Exception{
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Exception methodEx = null;
         try {
             con = DbListener.getConection();
-            stmt = con.prepareStatement("UPDATE categorias SET nome= ?, descricao=? WHERE nome = ?");
+            stmt = con.prepareStatement("UPDATE disciplinas SET nome= ?, ementa=?, ciclo=?, nota=? WHERE nome = ?");
             stmt.setString(1, nome);
-            stmt.setString(2, descricao);
-            stmt.setString(3, nomeAntigo);
+            stmt.setString(2, ementa);
+            stmt.setInt(3, ciclo);
+            stmt.setDouble(4, nota);
+            stmt.setString(5, nomeAntigo);
             stmt.execute();
         } catch (Exception ex) {
             methodEx = ex;
@@ -103,7 +107,7 @@ public class Disciplina {
         Exception methodEx = null;
         try {
             con = DbListener.getConection();
-            stmt = con.prepareStatement("DELETE FROM categorias WHERE nome=?");
+            stmt = con.prepareStatement("DELETE FROM disciplinas WHERE nome=?");
             stmt.setString(1, nome);
             stmt.execute();
         } catch (Exception ex) {
@@ -157,9 +161,7 @@ public class Disciplina {
         this.disciplinas.add(disciplinas);
     }
     
-    public ArrayList<Disciplina> getList(){
-        return disciplinas;
-    }
+
     
     public static String getCreatStatement(){
         return "CREATE TABLE IF NOT EXISTS disciplinas("
